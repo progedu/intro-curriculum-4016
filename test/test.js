@@ -4,6 +4,7 @@ const app = require('../app');
 const passportStub = require('passport-stub');
 
 describe('/login', () => {
+  
   before(() => {
     passportStub.install(app);
     passportStub.login({ username: 'testuser' });
@@ -27,5 +28,14 @@ describe('/login', () => {
       .get('/login')
       .expect(/testuser/)
       .expect(200, done);
+  });
+});
+
+describe('logout', () => {
+  it('/にリダイレクトされる', (done) => {
+    request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302, done);
   });
 });
