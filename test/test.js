@@ -3,12 +3,12 @@ const request = require('supertest');
 const app = require('../app');
 const passportStub = require('passport-stub');
 
-describe('/login', () => {
+describe('login', () => {
   before(() => {
     passportStub.install(app);
     passportStub.login({ username: 'testuser' });
   });
-  
+
   after(() => {
     passportStub.logout();
     passportStub.uninstall(app);
@@ -27,5 +27,12 @@ describe('/login', () => {
       .get('/login')
       .expect(/testuser/)
       .expect(200, done);
+  });
+  
+  it('ログアウト時は / にリダイレクトされる', (done) => {
+    request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302, done);
   });
 });
