@@ -1,16 +1,17 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var helmet = require('helmet');
-var session = require('express-session');
-var passport = require('passport');
+'use strict'
+const express = require('express');
+const path = require('path');
+const favicon = require('serve-favicon');
+const logger = require('morgan');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const helmet = require('helmet');
+const session = require('express-session');
+const passport = require('passport');
 
-var GitHubStrategy = require('passport-github2').Strategy;
-var GITHUB_CLIENT_ID = '2f831cb3d4aac02393aa';
-var GITHUB_CLIENT_SECRET = '9fbc340ac0175123695d2dedfbdf5a78df3b8067';
+const GitHubStrategy = require('passport-github2').Strategy;
+const GITHUB_CLIENT_ID = '2f831cb3d4aac02393aa';
+const GITHUB_CLIENT_SECRET = '9fbc340ac0175123695d2dedfbdf5a78df3b8067';
 
 passport.serializeUser(function (user, done) {
   done(null, user);
@@ -33,11 +34,11 @@ passport.use(new GitHubStrategy({
   }
   ));
 
-var routes = require('./routes/index');
-var login = require('./routes/login');
-var logout = require('./routes/logout');
+const routes = require('./routes/index');
+const login = require('./routes/login');
+const logout = require('./routes/logout');
 
-var app = express();
+const app = express();
 app.use(helmet());
 
 // view engine setup
@@ -73,7 +74,7 @@ app.get('/auth/github/callback',
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  const err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
