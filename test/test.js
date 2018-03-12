@@ -93,6 +93,7 @@ describe('/logout',
         console.log('test3開始');
         request(app)
           .get('/logout')
+          .expect('Location', '/')
           .expect(302, done);
         console.log('test3完了');
       }
