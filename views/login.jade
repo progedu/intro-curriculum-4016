@@ -1,6 +1,10 @@
+//- layout.jadeを継承し
 extends layout
 
+//- contentのブロックだけ書き換える
 block content
   a(href="/auth/github") GitHubでログイン
+  //- ユーザーデータが設定されている場合（ログイン中）は
+  //- ユーザー名を表示する
   if user
      p 現在 #{user.username} でログイン中
