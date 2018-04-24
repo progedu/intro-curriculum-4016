@@ -14,7 +14,8 @@ describe('/login', () => {
     passportStub.uninstall(app);
   });
 
-  it('ログインのためのリンクが含まれる', (done) => {
+  it('ログインのためのリンクが含まれる', function(done) {
+    this.timeout(5000);
     request(app)
       .get('/login')
       .expect('Content-Type', 'text/html; charset=utf-8')
@@ -27,5 +28,15 @@ describe('/login', () => {
       .get('/login')
       .expect(/testuser/)
       .expect(200, done);
+  });
+
+});
+
+describe('/logout', () => {
+  it('ログアウトしたときは/にリダイレクトされる', (done) => {
+    request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302, done)
   });
 });
