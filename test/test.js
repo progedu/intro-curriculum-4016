@@ -29,3 +29,14 @@ describe('/login', () => {
       .expect(200, done);
   });
 });
+
+describe('/logout', () => {
+
+  it('ログアウトした際にトップページにリダイレクトされる', (done) => {
+    request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302, done);
+  });
+
+});
