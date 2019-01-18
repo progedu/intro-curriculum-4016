@@ -22,10 +22,21 @@ describe('/login', () => {
       .expect(200, done);
   });
 
-  it('ログイン時はユーザー名が表示される', (done) => {
+    it('ログイン時はユーザー名が表示される', (done) => {
+        request(app)
+          .get('/login')
+          .expect(/testuser/)
+          .expect(200, done);
+      });
+
+  
+});
+
+describe('/logout', () => {
+  it('/ にリダイレクトされる', (done) => {
     request(app)
-      .get('/login')
-      .expect(/testuser/)
-      .expect(200, done);
+    .get('/logout')
+    .expect('Location', '/')
+    .expect(302, done)
   });
 });
