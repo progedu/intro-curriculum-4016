@@ -28,4 +28,12 @@ describe('/login', () => {
       .expect(/testuser/)
       .expect(200, done);
   });
+
+  it('redirect to "/" when access to "/logout"', (done) => {
+    request(app)
+      .get('/logout')
+      .expect('location','/')
+      .expect(302, done);
+  });
+  
 });
