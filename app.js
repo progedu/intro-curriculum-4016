@@ -11,6 +11,11 @@ var GitHubStrategy = require('passport-github2').Strategy;
 var GITHUB_CLIENT_ID = '2f831cb3d4aac02393aa';
 var GITHUB_CLIENT_SECRET = '9fbc340ac0175123695d2dedfbdf5a78df3b8067';
 
+// Twitter認証の準備
+var TwitterStrategy = require('passport-twitter').Strategy;
+var TWITTER_CONSUMER_KEY =  'XXXXXXXXXXXX';   // ご自身で取得した値を入力してください
+var TWITTER_CONSUMER_SECRET = 'XXXXXXXXXXXXXXX'; // ご自身で取得した値を入力してください
+
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -19,11 +24,26 @@ passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
-
+// GitHubでのログイン
 passport.use(new GitHubStrategy({
   clientID: GITHUB_CLIENT_ID,
   clientSecret: GITHUB_CLIENT_SECRET,
-  callbackURL: 'http://localhost:8000/auth/github/callback'
+  // 設定URLを「localhost → example.net」にしてあります。「GitHub認証の設定」と「hostsファイル（自分のPC内）」の設定も変更しましょう
+  callbackURL: 'http://example.net:8000/auth/github/callback'
+},
+  function (accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
+      return done(null, profile);
+    });
+  }
+));
+
+// Twitterでログイン
+passport.use(new TwitterStrategy({
+  consumerKey: TWITTER_CONSUMER_KEY,
+  consumerSecret: TWITTER_CONSUMER_SECRET,
+  // localhost だと登録できません。
+  callbackURL: "http://example.net:8000/auth/twitter/callback"
 },
   function (accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
@@ -57,6 +77,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 
+// GitHub用ハンドラ
 app.get('/auth/github',
   passport.authenticate('github', { scope: ['user:email'] }),
   function (req, res) {
@@ -64,6 +85,18 @@ app.get('/auth/github',
 
 app.get('/auth/github/callback',
   passport.authenticate('github', { failureRedirect: '/login' }),
+  function (req, res) {
+    res.redirect('/');
+  });
+
+// Twitter用ハンドラ
+app.get('/auth/twitter',
+  passport.authenticate('twitter'),
+  function (req, res) {
+  });
+
+app.get('/auth/twitter/callback',
+  passport.authenticate('twitter', { failureRedirect: '/login' }),
   function (req, res) {
     res.redirect('/');
   });
