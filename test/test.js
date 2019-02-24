@@ -28,4 +28,19 @@ describe('/login', () => {
       .expect(/testuser/)
       .expect(200, done);
   });
+
+
+    it('/ にリダイレクトされる', (done) => {
+       request(app)
+        .get('/logout')
+        .expect('Location', '/')
+         .expect(302, done);
+      });
+      it('indexページではExpressと表示される', (done) => {
+        request(app)
+          .get('/')
+          .expect(/Express/)
+          .expect(200, done);
+      })
+
 });
