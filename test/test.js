@@ -36,5 +36,11 @@ describe('/login', () => {
         .expect('Location', '/')
          .expect(302, done);
       });
+      it('indexページではExpressと表示される', (done) => {
+        request(app)
+          .get('/')
+          .expect(/Express/)
+          .expect(200, done);
+      })
 
 });
