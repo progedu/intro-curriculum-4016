@@ -28,7 +28,9 @@ describe('/login', () => {
       .expect(/testuser/)
       .expect(200, done);
   });
+});
 
+describe('/logout', () => {
   it('ログアウト時はリダイレクトされる', (done) => {
     request(app)
       .get('/logout')
