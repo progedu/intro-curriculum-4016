@@ -31,15 +31,6 @@ describe('/login', () => {
 });
 
 describe('/logout', () => {
-  before(() => {
-    passportStub.install(app);
-    passportStub.login({ username: 'testuser' });
-  });
-  
-  after(() => {
-    passportStub.logout();
-    passportStub.uninstall(app);
-  });
 
   it('ログアウト後にリダイレクトされる', (done) => {
     request(app)
