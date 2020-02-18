@@ -8,7 +8,7 @@ describe('/login', () => {
     passportStub.install(app);
     passportStub.login({ username: 'testuser' });
   });
-  
+
   after(() => {
     passportStub.logout();
     passportStub.uninstall(app);
@@ -29,3 +29,4 @@ describe('/login', () => {
       .expect(200, done);
   });
 });
+
