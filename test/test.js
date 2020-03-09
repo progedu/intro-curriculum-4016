@@ -14,11 +14,12 @@ describe('/login', () => {
     passportStub.uninstall(app);
   });
 
+  let ValidLoginLink = () => { return /<a href="\/auth\/github"/ } ;
   it('ログインのためのリンクが含まれる', (done) => {
     request(app)
       .get('/login')
       .expect('Content-Type', 'text/html; charset=utf-8')
-      .expect(/<a href="\/auth\/github"/)
+      .expect(ValidLoginLink())
       .expect(200, done);
   });
 
@@ -27,5 +28,25 @@ describe('/login', () => {
       .get('/login')
       .expect(/testuser/)
       .expect(200, done);
+  });
+
+/**
+ *   it('/logout にアクセスした際に / にリダイレクトされる', (done) => {
+    request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302, done);
+  });
+ * 
+ */
+
+});
+
+describe('/logout', () => {
+  it('/logout にアクセスした際に / にリダイレクトされる', (done) => {
+    request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302, done);
   });
 });
