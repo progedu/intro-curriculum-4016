@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "test": "node_modules/.bin/mocha"
+    "test": "node_modules/mocha/bin/mocha --timeout 10000"
   },
   "dependencies": {
     "body-parser": "~1.13.2",
@@ -20,8 +20,8 @@
     "serve-favicon": "~2.3.0"
   },
   "devDependencies": {
-    "mocha": "^2.4.5",
-    "passport-stub": "^1.1.1",
-    "supertest": "^1.2.0"
+    "mocha": "4.0.1",
+    "passport-stub": "1.1.1",
+    "supertest": "3.1.0"
   }
 }
