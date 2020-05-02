@@ -32,6 +32,7 @@ describe('/login', () => {
   it('/logoutにアクセスした際に/にリダイレクトされる', (done) => {
     request(app)
       .get('/logout')
-      .expect('Location', '/').expect(302, done)
+      .expect('Location', '/')
+      .expect(302, done)
   });
 });
