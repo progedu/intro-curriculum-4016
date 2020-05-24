@@ -26,3 +26,13 @@ describe('/login', () => {
       .expect(200);
   });
 });
+
+describe('/logout', () => {
+  test('/ へのリダイレクトの確認', () => {
+    return request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302);
+
+  });
+});
