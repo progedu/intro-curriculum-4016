@@ -8,13 +8,13 @@ describe('/login', () => {
     passportStub.install(app);
     passportStub.login({ username: 'testuser' });
   });
-  
+
   after(() => {
     passportStub.logout();
     passportStub.uninstall(app);
   });
 
-  it('ログインのためのリンクが含まれる', (done) => {
+  it('ログインのためのリンクが含まれる', done => {
     request(app)
       .get('/login')
       .expect('Content-Type', 'text/html; charset=utf-8')
@@ -22,10 +22,19 @@ describe('/login', () => {
       .expect(200, done);
   });
 
-  it('ログイン時はユーザー名が表示される', (done) => {
+  it('ログイン時はユーザー名が表示される', done => {
     request(app)
       .get('/login')
       .expect(/testuser/)
       .expect(200, done);
+  });
+});
+
+describe('/logout', () => {
+  it('ログアウトした際に/にリダイレクトされる', done => {
+    request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302, done);
   });
 });
