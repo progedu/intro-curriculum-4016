@@ -29,3 +29,12 @@ describe('/login', () => {
       .expect(200, done);
   });
 });
+
+describe('/logout', () => {
+  it('ログアウト時、ルートURIにリダイレクトされる', (done) => {
+    request(app)
+      .get('/logout')
+      .expect('Location', '/')
+      .expect(302, done)
+  });
+});
