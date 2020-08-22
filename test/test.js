@@ -25,4 +25,10 @@ describe('/login', () => {
       .expect(/testuser/)
       .expect(200);
   });
+  test('/logoutにアクセス時、/ へリダイレクトされる', () => {
+    return request(app)
+        .get('/logout')
+        .expect('Location', '/')
+        .expect(302);
+  })
 });
