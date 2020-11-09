@@ -25,10 +25,13 @@ describe('/login', () => {
       .expect(/testuser/)
       .expect(200);
   });
-  test('ログアウト時はトップにリダイレクトされる', () => {
+});
+
+describe('/logout', () => {
+  test('ログアウト時はTOPにリダイレクトされる', () => {
     return request(app)
       .get('/logout')
       .expect('Location', '/')
-      .expect(302);
+      .expect(302); 
   });
-});
+});   
