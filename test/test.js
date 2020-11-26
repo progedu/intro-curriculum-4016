@@ -3,6 +3,16 @@ const request = require('supertest');
 const app = require('../app');
 const passportStub = require('passport-stub');
 
+describe('/logout',()=>{
+  test('/にリダイレクトされる',()=>{
+    return request(app)
+      .get('/logout')
+      .expect('Location','/')
+      .expect(302);
+  })
+})
+
+
 describe('/login', () => {
   beforeAll(() => {
     passportStub.install(app);
