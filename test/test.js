@@ -24,5 +24,17 @@ describe('/login', () => {
       .get('/login')
       .expect(/testuser/)
       .expect(200);
+  
+  
+  });
+});
+
+describe('/logout', () => {
+  //演習 ちゃんとしたURLに飛ぶかテスト
+  test('/logout にアクセスした際に / にリダイレクトされる', () => {
+    return request(app)
+    .get('/logout')
+    .expect('Location', '/')
+    .expect(302);
   });
 });
