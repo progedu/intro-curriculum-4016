@@ -26,3 +26,21 @@ describe('/login', () => {
       .expect(200);
   });
 });
+
+describe('/logout', () => {
+  beforeAll(() => {
+    passportStub.install(app);
+    passportStub.login({ username: 'testuser' });
+  });
+  afterAll(() => {
+    passportStub.logout();
+    passportStub.uninstall(app);
+  });
+
+  test('/ にリダイレクトされる', () => {
+    return request(app)
+      .get('/logout')
+      .expect('location', '/')
+      .expect(302);
+  });
+});
