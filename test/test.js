@@ -1,3 +1,4 @@
+// schedule-arrangerの練習問題：ログアウト時のリダイレクトを検証せよ
 'use strict';
 const request = require('supertest');
 const app = require('../app');
@@ -24,5 +25,11 @@ describe('/login', () => {
       .get('/login')
       .expect(/testuser/)
       .expect(200);
+  });
+  test('ログアウト時にリダイレクトされる', () => {
+    return request(app)
+    .get('/logout')
+    .expect('Location', '/')
+    .expect(302)
   });
 });
